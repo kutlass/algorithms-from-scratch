@@ -22,7 +22,7 @@ int main() {
 
     std::cout << "Before InsertionSort():" << std::endl;
     for (int i = 0; i < numbersSize; i++) {
-    std::cout << numbers[i] << std::endl;
+        std::cout << numbers[i] << std::endl;
     }
 
     InsertionSort(numbers, numbersSize);
