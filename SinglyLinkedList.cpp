@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -76,6 +77,107 @@ void prepend(int value) {
         // Apply the "only one node in list" invariant
         pTail = pNewHead;
     }
+}
+
+//
+// remove(value):
+// --------------
+//
+//     // initialize traversal decals
+//     pCurrent  ← pHead
+//     pPrevious ← NULL
+//     pFound    ← NULL
+//
+//     // walk the list until we find the node or reach the end
+//     while (pFound == NULL AND pCurrent != NULL):
+//         if (value == pCurrent.value):
+//             pFound ← pCurrent
+//         else:
+//             pPrevious ← pCurrent
+//             pCurrent  ← pCurrent.pNext
+//         end if
+//     end while
+//
+//     // perform removal only if a matching node was found
+//     if (pFound != NULL):
+//
+//         // CASE 1: removing the head
+//         if (pFound == pHead):
+//             pHead ← pHead.pNext
+//             // if list becomes empty, repair tail
+//             if (pHead == NULL):
+//                 pTail ← NULL
+//             end if
+//
+//         else:
+//
+//             // CASE 2: removing the tail
+//             if (pFound == pTail):
+//                 pTail ← pPrevious
+//                 pTail.pNext ← NULL
+//
+//             // CASE 3: removing a middle node
+//             else:
+//                 pPrevious.pNext ← pFound.pNext
+//             end if
+//
+//         end if
+//
+//         // free the removed node
+//         free(pFound)
+//
+//     end if
+void remove_(int value) {
+
+    // Decals (imposters)
+    Node* pCurrent  = pHead;
+    Node* pPrevious = NULL;
+
+    // Explicit pointer to the found node
+    Node* pFound = NULL;
+
+    // Traverse the centipede
+    while (NULL == pFound && NULL != pCurrent) {
+
+        if (value == pCurrent->value) {
+            pFound = pCurrent;
+        } else {
+            pPrevious = pCurrent;
+            pCurrent  = pCurrent->pNext;
+        }
+    }
+
+    // Decide what to do based on pFound
+    if (NULL != pFound) {
+
+        // CASE 1: Removing the head
+        if (pFound == pHead) {
+            pHead = pHead->pNext;
+
+            // If list becomes empty, repair tail
+            if (NULL == pHead) {
+                pTail = NULL;
+            }
+
+        } else {
+
+            // CASE 2: Removing the tail
+            if (pFound == pTail) {
+                pTail = pPrevious;
+                pTail->pNext = NULL;
+
+            } else {
+
+                // CASE 3: Removing a middle node
+                pPrevious->pNext = pFound->pNext;
+            }
+        }
+
+        // Free the node after all rewiring
+        free(pFound);
+    }
+
+    // If pFound == NULL, nothing happens (target not found)
 }
 
 //
