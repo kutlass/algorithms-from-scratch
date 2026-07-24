@@ -255,7 +255,7 @@ int main(void) {
         printf("search() did NOT find %d\n", SEARCH_NUMBER);
     }
 
-    remove_(69);
+    remove_(SEARCH_NUMBER);
 
     printList();
     if ( true == search(SEARCH_NUMBER) ) {
