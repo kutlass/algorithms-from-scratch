@@ -252,7 +252,7 @@ int main(void) {
     if ( true == search(SEARCH_NUMBER) ) {
         printf("search() found %d\n", SEARCH_NUMBER);
     } else {
-        printf("search() found %d\n", SEARCH_NUMBER);
+        printf("search() did NOT find %d\n", SEARCH_NUMBER);
     }
 
     remove_(69);
